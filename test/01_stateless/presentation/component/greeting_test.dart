@@ -8,12 +8,14 @@ void main() {
     // given
     final name = '홍길동';
 
+    final greeting = Greeting(
+      name: name,
+      person: Person(name: name, age: 10),
+    );
+
     await tester.pumpWidget(
       MaterialApp(
-        home: Greeting(
-          name: name,
-          person: Person(name: name, age: 10),
-        ),
+        home: greeting,
       ),
     );
 
