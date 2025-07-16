@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/02_stateful/model/ingredient.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/component/ingredient_item.dart';
+import 'package:flutter_recipe_app/02_stateful/presentation/component/bookmark_button_widget.dart';
+import 'package:flutter_recipe_app/02_stateful/presentation/component/ingredient_item_widget.dart';
+import 'package:flutter_recipe_app/02_stateful/presentation/component/recipe_list_item_widget.dart';
+import 'package:flutter_recipe_app/02_stateful/presentation/component/start_rate_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,16 +56,33 @@ class TestScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min, // Column이 자식 크기만큼만 공간 차지
             children: [
-              IngredientItem(
-                name: testIngredient.name,
-                quantity: testIngredient.quantity,
-                ingredient: testIngredient,
+              // IngredientItemWidget(
+              //   name: testIngredient.name,
+              //   quantity: testIngredient.quantity,
+              //   ingredient: testIngredient,
+              // ),
+              // const SizedBox(height: 16.0), // 아이템 간 간격
+              // IngredientItemWidget(
+              //   name: testIngredient2.name,
+              //   quantity: testIngredient2.quantity,
+              //   ingredient: testIngredient2,
+              // ),
+              RecipeListItem(
+                name: 'Traditonal spare ribs baked',
+                userName: 'By ChefJohn',
+                time: 20,
+                rate: 4,
+                isBookmarked: true,
+                onClick: () {},
               ),
-              const SizedBox(height: 16.0), // 아이템 간 간격
-              IngredientItem(
-                name: testIngredient2.name,
-                quantity: testIngredient2.quantity,
-                ingredient: testIngredient2,
+              StarRateWidget(rating: 0),
+              BookmarkButtonWidget(isBookmarked: false, onClick: () {}),
+              IngredientItemWidget(
+                ingredient: Ingredient(
+                  name: 'tomato',
+                  quantity: 500,
+                  imgSrc: 'assets/images/tomato.png',
+                ),
               ),
             ],
           ),

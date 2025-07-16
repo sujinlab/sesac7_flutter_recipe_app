@@ -108,6 +108,14 @@ abstract class TextStyles {
   static final TextStyle smallerTextRegular = TextStyle(
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w400,
+    fontSize: 8.0,
+    height: 12.0 / 8.0,
+    letterSpacing: 0.0,
+  );
+
+  static final TextStyle smallerTextRegular_recipeListItem = TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w400,
     fontSize: 11.0,
     height: 17.0 / 11.0,
     letterSpacing: 0.0,

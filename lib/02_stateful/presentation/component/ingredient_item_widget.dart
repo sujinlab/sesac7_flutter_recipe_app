@@ -5,15 +5,11 @@ import 'package:flutter_recipe_app/02_stateful/presentation/ui/text_styles.dart'
 
 import '../ui/app_colors.dart';
 
-class IngredientItem extends StatelessWidget {
-  final String name;
-  final int quantity;
+class IngredientItemWidget extends StatelessWidget {
   final Ingredient ingredient;
 
-  const IngredientItem({
+  const IngredientItemWidget({
     super.key,
-    required this.name,
-    required this.quantity,
     required this.ingredient,
   });
 
