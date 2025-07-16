@@ -7,15 +7,18 @@ import '../ui/app_colors.dart';
 
 class IngredientItemWidget extends StatelessWidget {
   final Ingredient ingredient;
+  final double width;
 
   const IngredientItemWidget({
     super.key,
+    double? width,
     required this.ingredient,
-  });
+  }) : width = width ?? double.infinity;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: (width as num).toDouble(),
       height: 76,
       decoration: BoxDecoration(
         color: AppColors.gray4,

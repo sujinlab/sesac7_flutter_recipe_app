@@ -9,18 +9,22 @@ class RecipeListItem extends StatefulWidget {
   final String userName;
   final int time;
   final int rate;
+  final String imgSrc;
   final bool isBookmarked;
+  final double width;
   final void Function() onClick;
 
   const RecipeListItem({
     super.key,
+    width,
     required this.name,
     required this.userName,
     required this.time,
     required this.rate,
+    required this.imgSrc,
     required this.isBookmarked,
     required this.onClick,
-  });
+  }) : width = width ?? double.infinity;
 
   @override
   State<RecipeListItem> createState() => _RecipeListItemState();
@@ -38,12 +42,12 @@ class _RecipeListItemState extends State<RecipeListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //width: 315,
+      width: widget.width,
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         image: DecorationImage(
-          image: AssetImage('assets/images/recipe_list_item_thumbnail_1.png'),
+          image: AssetImage(widget.imgSrc),
           fit: BoxFit.cover,
         ),
       ),
