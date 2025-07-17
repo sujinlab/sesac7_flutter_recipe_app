@@ -30,18 +30,6 @@ class TestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Ingredient testIngredient = Ingredient(
-      imgSrc: 'assets/images/tomato.png',
-      name: 'Tomatos000000',
-      quantity: 150000,
-    );
-
-    final Ingredient testIngredient2 = Ingredient(
-      imgSrc: 'assets/images/tomato.png',
-      name: 'Tomatos',
-      quantity: 200,
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('테스트'),
