@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_recipe_app/02_stateful/model/ingredient.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/component/bookmark_button_widget.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/component/ingredient_item_widget.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/component/recipe_list_item_widget.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/component/start_rate_widget.dart';
+import 'package:flutter_recipe_app/model/ingredient.dart';
+import 'package:flutter_recipe_app/presentation/component/bookmark_button_widget.dart';
+import 'package:flutter_recipe_app/presentation/component/ingredient_item_widget.dart';
+import 'package:flutter_recipe_app/presentation/component/recipe_list_item_widget.dart';
+import 'package:flutter_recipe_app/presentation/component/start_rate_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -78,7 +78,8 @@ class TestScreen extends StatelessWidget {
               IngredientItemWidget(
                 width: 315,
                 ingredient: Ingredient(
-                  name: 'tomato',
+                  name:
+                      'tomatotomatotomatotomatotomatotomatotomatotomatotomatotomatotomatotomato',
                   quantity: 500,
                   imgSrc: 'assets/images/tomato.png',
                 ),

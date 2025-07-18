@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/component/bookmark_button_widget.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/component/start_rate_widget.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/ui/app_colors.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/ui/text_styles.dart';
+import 'package:flutter_recipe_app/presentation/component/bookmark_button_widget.dart';
+import 'package:flutter_recipe_app/presentation/component/start_rate_widget.dart';
+import 'package:flutter_recipe_app/presentation/ui/app_colors.dart';
+import 'package:flutter_recipe_app/presentation/ui/text_styles.dart';
 
 class RecipeListItem extends StatefulWidget {
   final String name;

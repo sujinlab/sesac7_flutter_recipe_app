@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_recipe_app/02_stateful/model/ingredient.dart';
-import 'package:flutter_recipe_app/02_stateful/presentation/ui/text_styles.dart';
+import 'package:flutter_recipe_app/model/ingredient.dart';
+import 'package:flutter_recipe_app/presentation/ui/text_styles.dart';
 
 import '../ui/app_colors.dart';
 
