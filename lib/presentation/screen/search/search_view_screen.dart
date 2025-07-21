@@ -76,28 +76,6 @@ class SearchViewScreen extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     }
-    if (state.errorMessage.isNotEmpty) {
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              onChanged: (text) {
-                viewModel.onKeywordChanged(text);
-              },
-              decoration: const InputDecoration(
-                hintText: '레시피 검색...',
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          Center(
-            child: Text(state.errorMessage),
-          ),
-        ],
-      );
-    }
-
     return Column(
       children: [
         Padding(
@@ -112,22 +90,25 @@ class SearchViewScreen extends StatelessWidget {
             ),
           ),
         ),
-
-        Expanded(
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // 두 열로 설정
-              crossAxisSpacing: 8.0, // 열 간 간격
-              mainAxisSpacing: 8.0, // 행 간 간격
-              childAspectRatio: 0.75, // 카드의 가로세로 비율 조정
-            ),
-            itemCount: state.recipes.length,
-            itemBuilder: (context, index) {
-              final recipe = state.recipes[index];
-              return RecipeCard(recipe: recipe);
-            },
-          ),
-        ),
+        state.errorMessage.isNotEmpty
+            ? Center(
+                child: Text(state.errorMessage),
+              )
+            : Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // 두 열로 설정
+                    crossAxisSpacing: 8.0, // 열 간 간격
+                    mainAxisSpacing: 8.0, // 행 간 간격
+                    childAspectRatio: 0.75, // 카드의 가로세로 비율 조정
+                  ),
+                  itemCount: state.recipes.length,
+                  itemBuilder: (context, index) {
+                    final recipe = state.recipes[index];
+                    return RecipeCard(recipe: recipe);
+                  },
+                ),
+              ),
       ],
     );
   }
