@@ -53,6 +53,6 @@ class SearchViewModel with ChangeNotifier {
     _state = state.copyWith(keyword: newKeyword);
 
     fetchSearchResult(newKeyword);
-    notifyListeners();
+    //notifyListeners();
   }
 }

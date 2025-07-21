@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/data/data_source/recipe_data_source_impl.dart';
 import 'package:flutter_recipe_app/data/repository/recipe_repository_impl.dart';
 import 'package:flutter_recipe_app/presentation/component/card/recipe_card.dart';
-import 'package:flutter_recipe_app/presentation/component/search_text_field.dart';
 import 'package:flutter_recipe_app/presentation/screen/search/search_view_model.dart';
 
 void main() {
@@ -80,7 +79,18 @@ class SearchViewScreen extends StatelessWidget {
     if (state.errorMessage.isNotEmpty) {
       return Column(
         children: [
-          SearchTextField(viewModel: viewModel),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (text) {
+                viewModel.onKeywordChanged(text);
+              },
+              decoration: const InputDecoration(
+                hintText: '레시피 검색...',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
           Center(
             child: Text(state.errorMessage),
           ),
@@ -90,7 +100,18 @@ class SearchViewScreen extends StatelessWidget {
 
     return Column(
       children: [
-        SearchTextField(viewModel: viewModel),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            onChanged: (text) {
+              viewModel.onKeywordChanged(text);
+            },
+            decoration: const InputDecoration(
+              hintText: '레시피 검색...',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ),
 
         Expanded(
           child: GridView.builder(
