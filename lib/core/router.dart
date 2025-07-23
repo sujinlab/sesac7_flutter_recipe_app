@@ -10,8 +10,6 @@ import '../domain/use_case/get_users_use_case.dart';
 import '../domain/use_case/toggle_bookmark_use_case.dart';
 import '../presentation/screen/shell/shell_screen.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
-
 final userRepository = UserRepositoryImpl();
 final recipeRepository = RecipeRepositoryImpl();
 
@@ -27,7 +25,6 @@ final savedRecipesViewModel = SavedRecipesViewModel(
 
 final router = GoRouter(
   initialLocation: '/saved',
-  navigatorKey: _rootNavigatorKey,
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {

@@ -19,22 +19,26 @@ class RecipeRepositoryImpl implements RecipeRepository {
           Ingredient(
             name: 'Tomatos',
             amount: '500g',
-            imageUrl: 'https://placehold.co/40x40/FF6347/FFFFFF?text=T',
+            imageUrl:
+                'https://images.unsplash.com/photo-1561155653-29221e29b144?q=80&w=2070&auto=format&fit=crop',
           ),
           Ingredient(
             name: 'Cabbage',
             amount: '300g',
-            imageUrl: 'https://placehold.co/40x40/90EE90/FFFFFF?text=C',
+            imageUrl:
+                'https://images.unsplash.com/photo-1561587318-b2a5a0438a45?q=80&w=1974&auto=format&fit=crop',
           ),
           Ingredient(
             name: 'Taco',
             amount: '300g',
-            imageUrl: 'https://placehold.co/40x40/F4A460/FFFFFF?text=T',
+            imageUrl:
+                'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?q=80&w=1974&auto=format&fit=crop',
           ),
           Ingredient(
             name: 'Slice Bread',
             amount: '300g',
-            imageUrl: 'https://placehold.co/40x40/DEB887/FFFFFF?text=B',
+            imageUrl:
+                'https://images.unsplash.com/photo-1534293258471-896a2415a146?q=80&w=1974&auto=format&fit=crop',
           ),
         ],
         procedures: [
@@ -57,13 +61,70 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Chicken Part ${i + 1}',
             amount: '${(i + 1) * 100}g',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Chk${i + 1}',
+                'https://images.unsplash.com/photo-1606728035253-49e8a23146de?q=80&w=1974&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
           5,
           (i) =>
               'Procedure step ${i + 1}: Detailed instructions for roasting the chicken perfectly.',
+        ),
+      ),
+      Recipe(
+        id: '3',
+        userId: 'user3',
+        imageUrl:
+            'https://images.unsplash.com/photo-1540189549336-e6e-99c3679fe?q=80&w=1974&auto=format&fit=crop',
+        recipeName: 'Fresh Summer Salad',
+        rating: 4.8,
+        cookingTime: '15 min',
+        ingredients: List.generate(
+          10,
+          (i) => Ingredient(
+            name: 'Veggie ${i + 1}',
+            amount: '1 piece',
+            imageUrl:
+                'https://images.unsplash.com/photo-1540914124281-3425879423d9?q=80&w=1964&auto=format&fit=crop',
+          ),
+        ),
+        procedures: List.generate(
+          5,
+          (i) =>
+              'Salad Step ${i + 1}: How to assemble the best summer salad ever.',
+        ),
+      ),
+      Recipe(
+        id: '4',
+        userId: 'user1',
+        imageUrl:
+            'https://images.unsplash.com/photo-1482049016688-2d3e-1b311543?q=80&w=1910&auto=format&fit=crop',
+        recipeName: 'Avocado Toast with Egg',
+        rating: null,
+        cookingTime: '10 min',
+        ingredients: [
+          Ingredient(
+            name: 'Bread Slice',
+            amount: '2',
+            imageUrl:
+                'https://images.unsplash.com/photo-1534293258471-896a2415a146?q=80&w=1974&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Avocado',
+            amount: '1',
+            imageUrl:
+                'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?q=80&w=1975&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Egg',
+            amount: '2',
+            imageUrl:
+                'https://images.unsplash.com/photo-1587486913049-53fc889c079d?q=80&w=2070&auto=format&fit=crop',
+          ),
+        ],
+        procedures: List.generate(
+          7,
+          (i) =>
+              'Avocado Toast step ${i + 1}: A simple step for a quick breakfast.',
         ),
       ),
       Recipe(
@@ -74,15 +135,32 @@ class RecipeRepositoryImpl implements RecipeRepository {
         recipeName: 'Classic Spaghetti Carbonara',
         rating: 4.9,
         cookingTime: '25 min',
-        ingredients: List.generate(
-          7,
-          (i) => Ingredient(
-            name: 'Pasta Ingredient ${i + 1}',
-            amount: '${(i + 1) * 20}g',
+        ingredients: [
+          Ingredient(
+            name: 'Spaghetti',
+            amount: '400g',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Pst${i + 1}',
+                'https://images.unsplash.com/photo-1551183053-bf91a1d8c402?q=80&w=1974&auto=format&fit=crop',
           ),
-        ),
+          Ingredient(
+            name: 'Pancetta',
+            amount: '150g',
+            imageUrl:
+                'https://images.unsplash.com/photo-1591989330748-7865a1533833?q=80&w=1974&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Eggs',
+            amount: '3',
+            imageUrl:
+                'https://images.unsplash.com/photo-1587486913049-53fc889c079d?q=80&w=2070&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Parmesan',
+            amount: '100g',
+            imageUrl:
+                'https://images.unsplash.com/photo-1618164436245-2d3d41868dec?q=80&w=1974&auto=format&fit=crop',
+          ),
+        ],
         procedures: List.generate(
           8,
           (i) =>
@@ -97,15 +175,26 @@ class RecipeRepositoryImpl implements RecipeRepository {
         recipeName: 'Fluffy Pancakes',
         rating: 4.6,
         cookingTime: '20 min',
-        ingredients: List.generate(
-          9,
-          (i) => Ingredient(
-            name: 'Pancake Mix ${i + 1}',
-            amount: '1/2 cup',
+        ingredients: [
+          Ingredient(
+            name: 'Flour',
+            amount: '2 cups',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Pan${i + 1}',
+                'https://images.unsplash.com/photo-1509836336281-53a1ac1aago3?q=80&w=1974&auto=format&fit=crop',
           ),
-        ),
+          Ingredient(
+            name: 'Milk',
+            amount: '1.5 cups',
+            imageUrl:
+                'https://images.unsplash.com/photo-1550583724-b2692b85b150?q=80&w=1974&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Egg',
+            amount: '1',
+            imageUrl:
+                'https://images.unsplash.com/photo-1587486913049-53fc889c079d?q=80&w=2070&auto=format&fit=crop',
+          ),
+        ],
         procedures: List.generate(
           6,
           (i) =>
@@ -120,15 +209,26 @@ class RecipeRepositoryImpl implements RecipeRepository {
         recipeName: 'Tomato Basil Soup',
         rating: 4.3,
         cookingTime: '35 min',
-        ingredients: List.generate(
-          5,
-          (i) => Ingredient(
-            name: 'Soup Item ${i + 1}',
-            amount: '1 can',
+        ingredients: [
+          Ingredient(
+            name: 'Tomatoes',
+            amount: '1kg',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Sup${i + 1}',
+                'https://images.unsplash.com/photo-1561155653-29221e29b144?q=80&w=2070&auto=format&fit=crop',
           ),
-        ),
+          Ingredient(
+            name: 'Basil',
+            amount: '1 bunch',
+            imageUrl:
+                'https://images.unsplash.com/photo-1629228736395-13d85584f738?q=80&w=1964&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Vegetable Broth',
+            amount: '500ml',
+            imageUrl:
+                'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?q=80&w=2070&auto=format&fit=crop',
+          ),
+        ],
         procedures: List.generate(
           9,
           (i) =>
@@ -143,15 +243,32 @@ class RecipeRepositoryImpl implements RecipeRepository {
         recipeName: 'Chocolate Lava Cake',
         rating: 4.9,
         cookingTime: '30 min',
-        ingredients: List.generate(
-          8,
-          (i) => Ingredient(
-            name: 'Cake Ingredient ${i + 1}',
-            amount: '${(i + 1) * 10}g',
+        ingredients: [
+          Ingredient(
+            name: 'Dark Chocolate',
+            amount: '200g',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Cke${i + 1}',
+                'https://images.unsplash.com/photo-1571115177422-23e00ed14561?q=80&w=1974&auto=format&fit=crop',
           ),
-        ),
+          Ingredient(
+            name: 'Butter',
+            amount: '100g',
+            imageUrl:
+                'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?q=80&w=2070&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Eggs',
+            amount: '4',
+            imageUrl:
+                'https://images.unsplash.com/photo-1587486913049-53fc889c079d?q=80&w=2070&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Sugar',
+            amount: '50g',
+            imageUrl:
+                'https://images.unsplash.com/photo-1596043435137-e0242d514638?q=80&w=1974&auto=format&fit=crop',
+          ),
+        ],
         procedures: List.generate(
           10,
           (i) => 'Lava Cake Step ${i + 1}: Achieve the perfect molten center.',
@@ -165,15 +282,32 @@ class RecipeRepositoryImpl implements RecipeRepository {
         recipeName: 'Margherita Pizza',
         rating: 4.7,
         cookingTime: '20 min',
-        ingredients: List.generate(
-          6,
-          (i) => Ingredient(
-            name: 'Pizza Topping ${i + 1}',
-            amount: 'some',
+        ingredients: [
+          Ingredient(
+            name: 'Pizza Dough',
+            amount: '1 ball',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Pza${i + 1}',
+                'https://images.unsplash.com/photo-1593474751353-03b1a45c3a37?q=80&w=1974&auto=format&fit=crop',
           ),
-        ),
+          Ingredient(
+            name: 'Tomato Sauce',
+            amount: '1 cup',
+            imageUrl:
+                'https://images.unsplash.com/photo-1598815114942-121d201e1333?q=80&w=1974&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Mozzarella',
+            amount: '200g',
+            imageUrl:
+                'https://images.unsplash.com/photo-1628636614217-c9854c38a34a?q=80&w=1974&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Basil',
+            amount: 'a few leaves',
+            imageUrl:
+                'https://images.unsplash.com/photo-1629228736395-13d85584f738?q=80&w=1964&auto=format&fit=crop',
+          ),
+        ],
         procedures: List.generate(
           7,
           (i) => 'Pizza Step ${i + 1}: From dough to oven, the complete guide.',
@@ -187,15 +321,26 @@ class RecipeRepositoryImpl implements RecipeRepository {
         recipeName: 'Grilled Lemon Herb Chicken',
         rating: null,
         cookingTime: '40 min',
-        ingredients: List.generate(
-          12,
-          (i) => Ingredient(
-            name: 'Grill Item ${i + 1}',
-            amount: '1 piece',
+        ingredients: [
+          Ingredient(
+            name: 'Chicken Breasts',
+            amount: '4',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Grl${i + 1}',
+                'https://images.unsplash.com/photo-1606728035253-49e8a23146de?q=80&w=1974&auto=format&fit=crop',
           ),
-        ),
+          Ingredient(
+            name: 'Lemon',
+            amount: '1',
+            imageUrl:
+                'https://images.unsplash.com/photo-1574316234321-3c4a384115e3?q=80&w=1974&auto=format&fit=crop',
+          ),
+          Ingredient(
+            name: 'Herbs (Thyme, Rosemary)',
+            amount: '2 tbsp',
+            imageUrl:
+                'https://images.unsplash.com/photo-1598030304671-5aa1d6f21128?q=80&w=1974&auto=format&fit=crop',
+          ),
+        ],
         procedures: List.generate(
           8,
           (i) =>
@@ -216,7 +361,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Bowl Item ${i + 1}',
             amount: '1/2 cup',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Bwl${i + 1}',
+                'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=1964&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -239,7 +384,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Salmon Ingredient ${i + 1}',
             amount: '1 fillet',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Sal${i + 1}',
+                'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=2070&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -261,7 +406,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Taco Filling ${i + 1}',
             amount: 'some',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Tac${i + 1}',
+                'https://images.unsplash.com/photo-1565299712540-6bb353a5567a?q=80&w=1974&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -283,7 +428,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Stir-fry Veggie ${i + 1}',
             amount: '1 cup',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Stir${i + 1}',
+                'https://images.unsplash.com/photo-1606843048355-7a2874a9c1f2?q=80&w=1974&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -305,7 +450,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Scampi Item ${i + 1}',
             amount: 'some',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Sca${i + 1}',
+                'https://images.unsplash.com/photo-1625944012231-f03939b49319?q=80&w=1974&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -328,7 +473,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Muffin Mix ${i + 1}',
             amount: '1/4 cup',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Muf${i + 1}',
+                'https://images.unsplash.com/photo-1599785209707-a456fc1337bb?q=80&w=1974&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -350,7 +495,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Pizza Item ${i + 1}',
             amount: 'some',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Piz${i + 1}',
+                'https://images.unsplash.com/photo-1594007654729-407eedc4be65?q=80&w=1974&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -372,7 +517,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Pork Ingredient ${i + 1}',
             amount: '1 cup',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Prk${i + 1}',
+                'https://images.unsplash.com/photo-1599043513036-62dd5312f275?q=80&w=2070&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -394,7 +539,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Burger Item ${i + 1}',
             amount: '1',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Bur${i + 1}',
+                'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=2072&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
@@ -417,7 +562,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
             name: 'Salad Item ${i + 1}',
             amount: 'some',
             imageUrl:
-                'https://placehold.co/100x100/FFF/31343C?text=Sld${i + 1}',
+                'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=2070&auto=format&fit=crop',
           ),
         ),
         procedures: List.generate(
