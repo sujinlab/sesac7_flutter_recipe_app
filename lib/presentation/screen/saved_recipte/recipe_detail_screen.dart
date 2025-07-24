@@ -126,12 +126,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 ListenableBuilder(
                   listenable: widget.viewModel,
                   builder: (context, child) {
-                    final currentRecipe = widget.viewModel.state.recipes
-                        .firstWhere(
-                          (r) => r.id == widget.recipe.id,
-                          orElse: () => widget.recipe,
-                        );
-                    final isBookmarked = currentRecipe.isBookmarked;
+                    final currentRecipe = widget.recipe;
+
+                    final isBookmarked =
+                        currentRecipe?.isBookmarked ??
+                        widget.recipe.isBookmarked;
                     return CircleAvatar(
                       backgroundColor: Colors.white,
                       child: IconButton(
