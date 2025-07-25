@@ -8,10 +8,9 @@ part 'main.freezed.dart';
 
 part 'main.g.dart';
 
-// --- DI 설정: GetIt 인스턴스 생성 ---
 final getIt = GetIt.instance;
 
-// --- 유틸리티: Result 클래스 ---
+// --- 유틸리티 ---
 @freezed
 sealed class Result<T> with _$Result<T> {
   const factory Result.success(T data) = Success;
@@ -19,7 +18,19 @@ sealed class Result<T> with _$Result<T> {
   const factory Result.error(Exception e) = Error;
 }
 
-// --- 1. 데이터 계층 ---
+// [새로 추가됨] 앱의 모든 경로를 중앙에서 관리하는 클래스
+abstract class Routes {
+  static const String items = '/items';
+  static const String settings = '/settings';
+  static const String detail = '/detail/:id';
+  static const String reviews = 'reviews'; // 자식 경로는 '/'로 시작하지 않음
+
+  static String itemDetailPath(int id) => '/detail/$id';
+
+  static String itemReviewsPath(String id) => '/detail/$id/reviews';
+}
+
+// --- 데이터 계층 ---
 @JsonSerializable()
 class ItemDto {
   final int? id;
@@ -43,7 +54,7 @@ class ItemDataSource {
   }
 }
 
-// --- 2. 도메인 계층 ---
+// --- 도메인 계층 ---
 class Item {
   final int id;
   final String name;
@@ -81,7 +92,16 @@ class GetItemsUseCase {
   Future<Result<List<Item>>> execute() => _repository.getItems();
 }
 
-// --- 3. 프레젠테이션 계층 (ViewModel & UI State) ---
+// --- 프레젠테이션 계층 ---
+
+// 사용자의 상호작용을 정의하는 Action
+@freezed
+sealed class ItemsAction with _$ItemsAction {
+  const factory ItemsAction.clickItem(Item item) = ClickItem;
+
+  const factory ItemsAction.dragItem(Item item) = DragItem;
+}
+
 @freezed
 abstract class ItemsState with _$ItemsState {
   const factory ItemsState({
@@ -101,6 +121,8 @@ class ItemsViewModel with ChangeNotifier {
   ItemsState get state => _state;
 
   Future<void> fetchItems() async {
+    if (state.items.isNotEmpty || state.isLoading) return;
+
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
@@ -113,9 +135,22 @@ class ItemsViewModel with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void onAction(ItemsAction action) {
+    switch (action) {
+      case ClickItem(:final item):
+        print('Item clicked in ViewModel: ${item.name}');
+      case DragItem(:final item):
+        final updatedItems = List<Item>.from(state.items)
+          ..removeWhere((i) => i.id == item.id);
+        _state = state.copyWith(items: updatedItems);
+        notifyListeners();
+        print('Item dragged to delete in ViewModel: ${item.name}');
+    }
+  }
 }
 
-// --- DI 설정 함수 ---
+// DI 설정 함수
 void setupDependencies() {
   getIt.registerSingleton<ItemDataSource>(ItemDataSource());
   getIt.registerSingleton<ItemRepository>(
@@ -129,10 +164,22 @@ void setupDependencies() {
   );
 }
 
-// --- 4. 라우터 설정 ---
+// 라우터 설정
 final _router = GoRouter(
-  initialLocation: '/items',
+  initialLocation: Routes.items,
   routes: [
+    GoRoute(
+      path: Routes.detail,
+      builder: (context, state) =>
+          ItemDetailScreen(id: state.pathParameters['id']!),
+      routes: [
+        GoRoute(
+          path: Routes.reviews,
+          builder: (context, state) =>
+              ItemReviewScreen(id: state.pathParameters['id']!),
+        ),
+      ],
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           MainScreen(shell: navigationShell),
@@ -140,27 +187,17 @@ final _router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/items',
+              path: Routes.items,
               builder: (context, state) {
-                // 라우터가 ViewModel을 생성하여 View에 주입
-                final viewModel = getIt<ItemsViewModel>();
-                viewModel.fetchItems(); // 데이터 로드 시작
-                return ItemsScreen(viewModel: viewModel);
+                return ItemsScreenRoot(viewModel: getIt<ItemsViewModel>());
               },
-              routes: [
-                GoRoute(
-                  path: 'detail/:id',
-                  builder: (context, state) =>
-                      ItemDetailScreen(id: state.pathParameters['id']!),
-                ),
-              ],
             ),
           ],
         ),
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/settings',
+              path: Routes.settings,
               builder: (context, state) => const SettingsScreen(),
             ),
           ],
@@ -171,7 +208,7 @@ final _router = GoRouter(
   errorBuilder: (context, state) => ErrorScreen(error: state.error),
 );
 
-// --- App Entry Point ---
+// App Entry Point
 void main() {
   setupDependencies();
   runApp(const MyApp());
@@ -185,7 +222,7 @@ class MyApp extends StatelessWidget {
       MaterialApp.router(routerConfig: _router);
 }
 
-// --- 5. 뷰 계층 ---
+// --- 뷰 계층 ---
 class MainScreen extends StatelessWidget {
   final StatefulNavigationShell shell;
 
@@ -207,20 +244,63 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-// StatelessWidget으로 변경
-class ItemsScreen extends StatelessWidget {
+// ViewModel을 생성자에서 주입받고, 생명주기와 Action 처리를 담당
+class ItemsScreenRoot extends StatefulWidget {
   final ItemsViewModel viewModel;
 
-  const ItemsScreen({super.key, required this.viewModel});
+  const ItemsScreenRoot({super.key, required this.viewModel});
+
+  @override
+  State<ItemsScreenRoot> createState() => _ItemsScreenRootState();
+}
+
+class _ItemsScreenRootState extends State<ItemsScreenRoot> {
+  @override
+  void initState() {
+    super.initState();
+    widget.viewModel.fetchItems();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, child) {
+        return ItemsScreen(
+          state: widget.viewModel.state,
+          onAction: (action) {
+            widget.viewModel.onAction(action);
+
+            switch (action) {
+              case ClickItem(:final item):
+                context.push(Routes.itemDetailPath(item.id));
+              case DragItem():
+              // UI 로직 없음
+            }
+          },
+        );
+      },
+    );
+  }
+}
+
+// 순수하게 UI 렌더링과 Action 전달만 담당
+class ItemsScreen extends StatelessWidget {
+  final ItemsState state;
+  final void Function(ItemsAction action) onAction;
+
+  const ItemsScreen({
+    super.key,
+    required this.state,
+    required this.onAction,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('아이템 목록')),
-      body: ListenableBuilder(
-        listenable: viewModel,
-        builder: (context, child) {
-          final state = viewModel.state;
+      body: Builder(
+        builder: (context) {
           if (state.isLoading)
             return const Center(child: CircularProgressIndicator());
           if (state.errorMessage != null)
@@ -230,11 +310,24 @@ class ItemsScreen extends StatelessWidget {
             itemCount: state.items.length,
             itemBuilder: (context, index) {
               final item = state.items[index];
-              return ListTile(
-                title: Text(item.name),
-                onTap: () {
-                  context.go('/items/detail/${item.id}');
+              return Dismissible(
+                key: ValueKey(item.id),
+                direction: DismissDirection.endToStart,
+                onDismissed: (direction) {
+                  onAction(ItemsAction.dragItem(item));
                 },
+                background: Container(
+                  color: Colors.red,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: const Icon(Icons.delete, color: Colors.white),
+                ),
+                child: ListTile(
+                  title: Text(item.name),
+                  onTap: () {
+                    onAction(ItemsAction.clickItem(item));
+                  },
+                ),
               );
             },
           );
@@ -253,7 +346,35 @@ class ItemDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('아이템 상세')),
-      body: Center(child: Text('선택된 아이템 ID: $id')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('선택된 아이템 ID: $id'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                context.push(Routes.itemReviewsPath(id));
+              },
+              child: const Text('리뷰 보기'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ItemReviewScreen extends StatelessWidget {
+  final String id;
+
+  const ItemReviewScreen({super.key, required this.id});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('리뷰 목록')),
+      body: Center(child: Text('ID: $id의 리뷰 화면')),
     );
   }
 }
