@@ -336,7 +336,7 @@ final _router = GoRouter(
     ),
   ],
   errorBuilder: (context, state) => ErrorScreen(error: state.error),
-);
+);  //의이없는 주석
 
 // App Entry Point
 void main() {
@@ -460,10 +460,12 @@ class ItemsScreen extends StatelessWidget {
       ),
       body: Builder(
         builder: (context) {
-          if (state.isLoading)
+          if (state.isLoading) {
             return const Center(child: CircularProgressIndicator());
-          if (state.errorMessage != null)
+          }
+          if (state.errorMessage != null) {
             return Center(child: Text(state.errorMessage!));
+          }
 
           return ListView.builder(
             itemCount: state.items.length,
