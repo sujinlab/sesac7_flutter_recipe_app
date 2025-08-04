@@ -19,55 +19,61 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.1
+  sdk: '>=3.2.0 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
+#==============================================================================
+# Dependencies: 앱 실행에 직접 필요한 패키지들
+#==============================================================================
 dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  freezed_annotation: ^3.1.0
-  http: ^1.4.0
-  go_router: ^16.0.0
+  # --- 상태 관리 및 아키텍처 ---
+  get_it: ^7.7.0 # 의존성 주입(DI)을 쉽게 관리하기 위해 사용
+
+  # --- 라우팅 ---
+  go_router: ^14.2.0 # 화면 간의 이동(네비게이션)을 관리
+
+  # --- 네트워크 통신 ---
+  http: ^1.2.1 # 서버와 HTTP 통신(API 호출)을 위해 사용
+
+  # --- 코드 생성 (Annotation) ---
+  # build_runner가 코드를 생성할 때 참고하는 어노테이션
+  freezed_annotation: ^2.4.1 # 불변(immutable) 클래스와 sealed class를 쉽게 만들기 위해 사용
+  json_annotation: ^4.9.0 # JSON 직렬화/역직렬화를 위한 어노테이션
+
+  # --- UI 및 유틸리티 ---
+  cupertino_icons: ^1.0.8 # iOS 스타일 아이콘
 
   video_player: ^2.8.6
   chewie: ^1.7.5
-  get_it: ^8.0.3
-  json_annotation: ^4.9.0
+  url_launcher: ^6.3.0
+  intl: ^0.20.2
+  image_picker: ^1.1.2
+  connectivity_plus: ^6.1.4
+  cloud_firestore: ^6.0.0
+  uuid: ^4.5.1
 
+#==============================================================================
+# Dev Dependencies: 개발 과정에서만 필요한 패키지들
+#==============================================================================
 dev_dependencies:
-  freezed: ^3.2.0
-  integration_test:
-    sdk: flutter
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^6.0.0
-  build_runner: ^2.6.0
-  json_serializable: ^6.10.0
+  # --- 코드 생성 (Generator) ---
+  # 터미널에서 `flutter pub run build_runner build` 명령으로 코드를 자동 생성
+  build_runner: ^2.4.11 # 파일 감지 및 코드 생성을 실행하는 도구
+  freezed: ^2.5.2 # freezed_annotation을 기반으로 실제 코드를 생성
+  json_serializable: ^6.8.0 # json_serializable을 기반으로 fromJson/toJson 코드를 생성
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+  # --- 코드 분석 및 테스트 ---
+  flutter_lints: ^4.0.0 # 코드 스타일과 잠재적 오류를 검사하는 규칙 모음
 
-# The following section is specific to Flutter packages.
+#==============================================================================
+# Flutter 관련 설정
+#==============================================================================
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
